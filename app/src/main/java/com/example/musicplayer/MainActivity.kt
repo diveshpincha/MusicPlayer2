@@ -2,17 +2,15 @@ package com.example.musicplayer
 
 import android.Manifest
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,22 +27,15 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
-    fun askPermission(){
+    private fun askPermission(){
         Dexter.withContext(this)
-            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+            .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
                 }
 
-                override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                    Toast.makeText(this@MainActivity , "Permission Not Granted , shutting down",Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
-                    token: PermissionToken?) {
-                    token?.continuePermissionRequest()
+                override fun onPermissionRationaleShouldBeShown(p0: MutableList<PermissionRequest>?, p1: PermissionToken?) {
+                    p1?.continuePermissionRequest()
                 }
             }).check()
     }

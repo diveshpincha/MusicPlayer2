@@ -1,14 +1,17 @@
 package com.example.musicplayer.playPge
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,6 +21,8 @@ import com.example.musicplayer.database.SongDataBase
 import com.example.musicplayer.databinding.FragmentPlayBinding
 import com.example.musicplayer.mainScreen.MainFragmentDirections
 import kotlinx.coroutines.Runnable
+import java.io.File
+import java.net.URI
 
 class PlayFragment : Fragment() {
 
@@ -31,7 +36,7 @@ class PlayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentPlayBinding.inflate(layoutInflater)
 
         val songIndex = arguments?.let { PlayFragmentArgs.fromBundle(it) }
@@ -52,18 +57,37 @@ class PlayFragment : Fragment() {
 
         viewModel.startMedia(songIndex.index)
 
-        viewModel.imageUri.observe(viewLifecycleOwner , {
-                binding.songImage.setImageURI(Uri.parse(it))
-            if(binding.songImage.drawable == null ) binding.songImage.setImageResource(R.mipmap.music_icon)
-        })
+        viewModel.imageUri.observe(viewLifecycleOwner) {
+            binding.songImage.setImageURI(Uri.parse(it))
+            if (binding.songImage.drawable == null) binding.songImage.setImageResource(R.mipmap.music_icon)
+        }
 
         val adapter = SongAdapter(SongAdapter.OnClickListener{
             viewModel.startMedia(it.id)
+            binding.playPause.setImageResource(R.drawable.ic_baseline_pause_24)
             Log.i("id",it.id.toString())
         })
 
         binding.imageButton2.setOnClickListener {
             this.context?.let { it1 -> viewModel.share(Uri.parse(viewModel.songs.value?.get(viewModel.current)?.songUri), it1) }
+        }
+
+
+        binding.imageButton3.setOnClickListener {
+
+
+            val uri = Uri.parse(viewModel.songs.value?.get(viewModel.current)?.songUri)
+            val file = File(uri.path!!)
+            val deleted = file.delete()
+
+            if (deleted){
+                Toast.makeText(this.context, "File Deleted", Toast.LENGTH_SHORT).show()
+                user++
+                viewModel.startMedia(songIndex.index+user)
+            }
+            else{
+                Toast.makeText(this.context, "not deleted", Toast.LENGTH_SHORT).show()
+            }
         }
 
 

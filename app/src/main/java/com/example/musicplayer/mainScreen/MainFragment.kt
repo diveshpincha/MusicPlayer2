@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val app = requireNotNull(this.activity).application
         val dataSource = SongDataBase.getInstance(app).songDao
         val factory = MainViewModelFactory(dataSource , app)
@@ -39,9 +39,9 @@ class MainFragment : Fragment() {
             Log.i("id",it.id.toString())
         })
 
-        viewModel.playList.observe(viewLifecycleOwner,{
+        viewModel.playList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
         binding.songsList.adapter = adapter
 
