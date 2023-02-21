@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "songs_table",indices = arrayOf(Index(value = ["song_uri","song_name","image_uri"],unique = true)))
+@Entity(tableName = "songs_table",indices = [Index(value = ["song_uri","song_name","image_uri"],unique = true)])
 data class SongData(
         @ColumnInfo(name = "song_name")
     val title : String,

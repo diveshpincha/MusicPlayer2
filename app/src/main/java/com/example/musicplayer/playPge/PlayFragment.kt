@@ -1,11 +1,9 @@
 package com.example.musicplayer.playPge
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +12,12 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.musicplayer.R
 import com.example.musicplayer.SongAdapter
 import com.example.musicplayer.database.SongDataBase
 import com.example.musicplayer.databinding.FragmentPlayBinding
-import com.example.musicplayer.mainScreen.MainFragmentDirections
 import kotlinx.coroutines.Runnable
 import java.io.File
-import java.net.URI
 
 class PlayFragment : Fragment() {
 

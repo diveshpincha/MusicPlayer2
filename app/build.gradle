@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.musicplayer"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -50,15 +50,15 @@ android {
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
         implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
         implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-        implementation 'androidx.room:room-runtime:2.3.0'
-        implementation "androidx.room:room-ktx:2.3.0"
-        kapt 'androidx.room:room-compiler:2.3.0'
+        implementation 'androidx.room:room-runtime:2.5.0-alpha02'
+        implementation "androidx.room:room-ktx:2.5.0-alpha02"
+        kapt 'androidx.room:room-compiler:2.5.0-alpha02'
+        annotationProcessor 'androidx.room:room-compiler:2.5.0-alpha02'
         implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
         implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
         testImplementation 'junit:junit:4.13.2'
         androidTestImplementation 'androidx.test.ext:junit:1.1.2'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-        annotationProcessor 'androidx.room:room-compiler:2.3.0'
         implementation 'com.karumi:dexter:6.2.2'
         implementation 'com.mtechviral.mplaylib:mplaylib:1.0.0'
         implementation 'org.jetbrains.anko:anko:0.10.4'
@@ -68,5 +68,5 @@ android {
         implementation 'com.github.bumptech.glide:glide:4.10.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
         kapt 'com.github.bumptech.glide:compiler:4.10.0'
-        implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+        implementation 'com.github.2coffees1team:GlideToVectorYou:v2.0.0'
     }
